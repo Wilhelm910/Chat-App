@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    HotToastModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

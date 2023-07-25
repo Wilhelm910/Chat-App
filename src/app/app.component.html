@@ -3,7 +3,8 @@
 
   <ng-container *ngIf="authService.currentUser$ | async as user; else loginBtn">
     <button mat-button [matMenuTriggerFor]="userMenu">
-      <mat-icon>account_circle</mat-icon>
+      <img class="profile-img-toolbar" width="30px" height="30px"
+        [src]="user.photoURL ?? 'assets/images/user_placeholder.png'" />
       {{ user.displayName }}
     </button>
   </ng-container>
@@ -23,4 +24,5 @@
 
 <mat-menu #userMenu="matMenu">
   <button mat-menu-item (click)="logout()">Logout</button>
+  <button mat-menu-item routerLink="/profile">Update Profile</button>
 </mat-menu>

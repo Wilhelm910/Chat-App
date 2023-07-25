@@ -5,3 +5,10 @@ mat-toolbar {
 .content {
     padding: 32px;
 }
+
+.profile-img-toolbar {
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 8px;
+}

@@ -7,4 +7,26 @@
         </button>
         <input #inputField type="file" hidden (change)="uploadImage($event, user)">
     </div>
+    <form class="margin-top" [formGroup]="profileForm" (ngSubmit)="save()">
+        <div class="row">
+            <mat-form-field>
+                <input type="text" matInput placeholder="First Name" formControlName="firstName" />
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput placeholder="Last Name" formControlName="lastName" />
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <input type="number" matInput placeholder="Display Name" formControlName="displayName" />
+            </mat-form-field>
+            <mat-form-field>
+                <input type="number" matInput placeholder="Phone" formControlName="phone" />
+            </mat-form-field>
+        </div>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Address" formControlName="address" />
+        </mat-form-field>
+        <button type="submit" mat-raised-button class="margin-top">Save</button>
+    </form>
 </div>

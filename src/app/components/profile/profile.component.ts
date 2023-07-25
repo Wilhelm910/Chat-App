@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { concatMap } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,15 @@ import { concatMap } from 'rxjs';
 export class ProfileComponent implements OnInit {
 
   user$ = this.authService.currentUser$;
+
+  profileForm = new FormGroup({
+    uid: new FormControl(''),
+    displayName: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    phone: new FormControl(''),
+    address: new FormControl(''),
+  })
 
   constructor(
     private authService: AuthenticationService,
@@ -34,6 +44,10 @@ export class ProfileComponent implements OnInit {
       }),
       concatMap((photoURL) => this.authService.updateProfileData({ photoURL }))
     ).subscribe();
+  }
+
+  save() {
+    
   }
 
 }

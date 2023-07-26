@@ -22,6 +22,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatInputModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatAutocompleteModule,
     HotToastModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

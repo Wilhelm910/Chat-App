@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, setDoc, updateDoc, query  } from '@angular/fire/firestore';
 import { ProfileUser } from '../models/user-profile';
 import { Observable, from, of, switchMap } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
@@ -8,6 +8,12 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class UsersService {
+
+  get allUsers$(): Observable<ProfileUser[]> {
+    const ref = collection(this.firestore, 'users');
+    const queryAll = query(ref);
+    return collectionData(queryAll) as Observable<ProfileUser[]>;
+  }
 
   get currentUserProfil$(): Observable<ProfileUser | null> {
     return this.authService.currentUser$.pipe(

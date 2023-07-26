@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   Login with Firebase
 
-  <ng-container *ngIf="authService.currentUser$ | async as user; else loginBtn">
+  <ng-container *ngIf="user$ | async as user; else loginBtn">
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img class="profile-img-toolbar" width="30px" height="30px"
         [src]="user.photoURL ?? 'assets/images/user_placeholder.png'" />
@@ -18,7 +18,7 @@
 
 </mat-toolbar>
 
-<div class="content">
+<div>
   <router-outlet></router-outlet>
 </div>
 

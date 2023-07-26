@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, NonNullableFormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
@@ -27,19 +27,27 @@ export function passwordsMatchValidators(): ValidatorFn {
 })
 export class SignUpComponent implements OnInit {
 
+  signUpForm = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    confirmPassword: ['', Validators.required],
+  }, { validators: passwordsMatchValidators() })
 
+/*
   signUpForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: passwordsMatchValidators() })
-
+*/
   constructor(
     private authService: AuthenticationService,
     private toast: HotToastService,
     private router: Router,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private fb: NonNullableFormBuilder 
 
   ) { }
 
@@ -64,13 +72,14 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
-    if (!this.signUpForm.valid) {
+    const { name, email, password } = this.signUpForm.value;
+    if (!this.signUpForm.valid || !email || !password) {
       return;
     }
 
-    const { name, email, password } = this.signUpForm.value;
-    this.authService.signUp(email || '', password || '').pipe(
-      switchMap(({ user: { uid } }) => this.usersService.addUser({uid, email, displayName: name})),
+    
+    this.authService.signUp(email, password).pipe(
+      switchMap(({ user: { uid } }) => this.usersService.addUser({uid, email, displayName: name || ''})),
       this.toast.observe({
         success: 'Congrats! You signed up',
         loading: 'Signing in',
